@@ -1,12 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { works } from "@/data/works";
 import PuzzleImage from "@/components/PuzzleImage";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -25,6 +36,8 @@ export default function Home() {
             >
               KoutaArtworld
             </Link>
+
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8 text-sm">
               <a
                 href="#works"
@@ -45,9 +58,70 @@ export default function Home() {
                 Contact
               </a>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMobileMenu}
+              className="md:hidden z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <motion.span
+                animate={
+                  mobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                }
+                className="w-6 h-0.5 bg-black transition-all"
+              />
+              <motion.span
+                animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="w-6 h-0.5 bg-black transition-all"
+              />
+              <motion.span
+                animate={
+                  mobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                }
+                className="w-6 h-0.5 bg-black transition-all"
+              />
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-white md:hidden"
+          >
+            <div className="flex flex-col items-center justify-center h-full gap-8 text-2xl">
+              <a
+                href="#works"
+                onClick={closeMobileMenu}
+                className="hover:text-gray-600 transition-colors"
+              >
+                Works
+              </a>
+              <a
+                href="#about"
+                onClick={closeMobileMenu}
+                className="hover:text-gray-600 transition-colors"
+              >
+                About
+              </a>
+              <a
+                href="#contact"
+                onClick={closeMobileMenu}
+                className="hover:text-gray-600 transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 px-6 sm:px-8 lg:px-12 min-h-[80vh] flex items-center justify-center">
