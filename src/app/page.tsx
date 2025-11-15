@@ -65,13 +65,6 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-16">
-            <Link
-              href="/"
-              className="text-xl font-semibold tracking-tight hover:opacity-70 transition-opacity"
-            >
-              KoutaArtworld
-            </Link>
-
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8 text-sm">
               <a href="#news" className="hover:text-gray-600 transition-colors">
@@ -96,6 +89,26 @@ export default function Home() {
                 Contact
               </a>
             </div>
+
+            {/* Rainbow Logo */}
+            <Link
+              href="/"
+              className="text-xl font-semibold tracking-tight hover:opacity-70 transition-opacity"
+            >
+              <span className="text-red-500">K</span>
+              <span className="text-orange-500">o</span>
+              <span className="text-yellow-500">u</span>
+              <span className="text-green-500">t</span>
+              <span className="text-blue-500">a</span>
+              <span className="text-indigo-500">A</span>
+              <span className="text-purple-500">r</span>
+              <span className="text-pink-500">t</span>
+              <span className="text-red-500">w</span>
+              <span className="text-orange-500">o</span>
+              <span className="text-yellow-500">r</span>
+              <span className="text-green-500">l</span>
+              <span className="text-blue-500">d</span>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
@@ -169,7 +182,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-16 pb-20 px-6 sm:px-8 lg:px-12 min-h-[80vh] flex items-center justify-center">
+      <section className="relative pt-16 pb-20 px-6 sm:px-8 lg:px-12 min-h-[80vh] flex items-end justify-end">
         <div className="absolute inset-0 z-0">
           <PuzzleImage
             src="/image/mainimg.jpg"
@@ -179,16 +192,35 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto w-full text-center">
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight mb-6 leading-tight text-white drop-shadow-lg">
-            <span className="inline-block animate-fade-in-up animation-delay-0">
-              Kouta
-            </span>
+        <div className="relative z-10 w-full text-right pb-8 pr-8">
+          <motion.h1
+            className="text-7xl sm:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 2.5, ease: "easeIn" }}
+          >
+            <span className="inline-block">Kouta</span>
             <br />
-            <span className="inline-block font-normal animate-fade-in-up animation-delay-500">
-              Artworld
+            <span className="inline-block font-normal mr-4">Art</span>
+            <span className="inline-block font-normal">
+              worl
+              <motion.span
+                className="inline-block"
+                initial={{ y: 0 }}
+                animate={{
+                  y: [0, -20, 0, -15, 0, -10, 0],
+                }}
+                transition={{
+                  duration: 1.5,
+                  delay: 3.2,
+                  times: [0, 0.2, 0.4, 0.5, 0.7, 0.8, 1],
+                  ease: "easeOut",
+                }}
+              >
+                d
+              </motion.span>
             </span>
-          </h1>
+          </motion.h1>
         </div>
       </section>
 
@@ -348,7 +380,7 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
-                  はじめまして、こうたです。僕のサイトに訪れてくれてありがとうございます。ぼくの頭の中には、たくさんの世界が広がっています。絵を書くことが大好きなので、たくさん表現していきたいと思います。ニューヨークで個展をすることが僕の夢です応援して頂けると光栄です。。
+                  はじめまして、こうたです。僕のサイトに訪れてくれてありがとうございます。ぼくの頭の中には、たくさんの世界が広がっています。絵を書くことが大好きなので、たくさん表現していきたいと思います。ニューヨークで個展をすることが僕の夢です。応援して頂けると光栄です。
                 </p>
                 <p>
                   Thank you for visiting my website. Inside my mind, countless
