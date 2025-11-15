@@ -201,14 +201,15 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative aspect-square max-w-md mx-auto md:mx-0"
+              className="relative aspect-square w-full max-w-md mx-auto md:mx-0"
             >
               <Image
                 src="/image/kou.jpg"
                 alt="Kouta"
                 fill
                 className="object-cover rounded-2xl"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 768px) 90vw, 50vw"
+                priority
               />
             </motion.div>
             <motion.div
