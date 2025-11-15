@@ -253,7 +253,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:hello@portfolio.com"
+                href="mailto:to.katufumi.629@gmail.com"
                 className="px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors inline-block"
               >
                 Email Me
