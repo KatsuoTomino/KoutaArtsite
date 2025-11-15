@@ -135,9 +135,13 @@ export default function EditWorkPage({ params }: PageProps) {
 
       alert("Work updated successfully!");
       router.push("/admin/works");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error updating work:", error);
-      alert(`Failed to update work: ${error.message || error}`);
+      alert(
+        `Failed to update work: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setSaving(false);
     }

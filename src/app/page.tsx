@@ -12,7 +12,6 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [works, setWorks] = useState<Work[]>([]);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadData();
@@ -43,8 +42,6 @@ export default function Home() {
       // エラーが発生した場合は空の配列を設定
       setWorks([]);
       setNewsItems([]);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -374,7 +371,7 @@ export default function Home() {
               Get in Touch
             </h2>
             <p className="text-lg text-gray-600 mb-12">
-              Interested in working together? Let's start a conversation.
+              Interested in working together? Let&apos;s start a conversation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a

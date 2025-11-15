@@ -7,7 +7,7 @@ import { getSession, signOut } from "@/lib/auth";
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
   const router = useRouter();
 
   useEffect(() => {

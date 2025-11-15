@@ -102,9 +102,13 @@ export default function NewWorkPage() {
 
       alert("Work added successfully!");
       router.push("/admin/works");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error adding work:", error);
-      alert(`Failed to add work: ${error.message || error}`);
+      alert(
+        `Failed to add work: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setLoading(false);
     }

@@ -151,9 +151,13 @@ export default function EditNewsPage({ params }: PageProps) {
 
       alert("News updated successfully!");
       router.push("/admin/news");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error updating news:", error);
-      alert(`Failed to update news: ${error.message || error}`);
+      alert(
+        `Failed to update news: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setSaving(false);
     }

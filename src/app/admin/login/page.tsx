@@ -20,9 +20,11 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
       router.push("/admin");
-    } catch (error: any) {
+    } catch (error) {
       console.error("ログインエラー:", error);
-      setError(error.message || "ログインに失敗しました");
+      setError(
+        error instanceof Error ? error.message : "ログインに失敗しました"
+      );
     } finally {
       setLoading(false);
     }
