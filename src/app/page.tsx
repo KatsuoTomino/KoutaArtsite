@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { works } from "@/data/works";
+import { newsItems } from "@/data/news";
 import PuzzleImage from "@/components/PuzzleImage";
 
 export default function Home() {
@@ -39,6 +40,9 @@ export default function Home() {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8 text-sm">
+              <a href="#news" className="hover:text-gray-600 transition-colors">
+                News
+              </a>
               <a
                 href="#works"
                 className="hover:text-gray-600 transition-colors"
@@ -98,6 +102,13 @@ export default function Home() {
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 text-2xl">
               <a
+                href="#news"
+                onClick={closeMobileMenu}
+                className="hover:text-gray-600 transition-colors"
+              >
+                News
+              </a>
+              <a
                 href="#works"
                 onClick={closeMobileMenu}
                 className="hover:text-gray-600 transition-colors"
@@ -144,6 +155,45 @@ export default function Home() {
               Artworld
             </span>
           </h1>
+        </div>
+      </section>
+
+      {/* News Section */}
+      <section id="news" className="py-20 px-6 sm:px-8 lg:px-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-3xl sm:text-4xl font-light tracking-tight mb-4">
+              News
+            </h2>
+            <p className="text-gray-600">最新情報</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {newsItems.map((news, index) => (
+              <motion.div
+                key={news.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                  <time className="text-sm text-gray-500 font-medium min-w-[100px]">
+                    {news.date}
+                  </time>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-medium mb-2">{news.title}</h3>
+                    {news.description && (
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {news.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
