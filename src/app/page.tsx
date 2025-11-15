@@ -209,7 +209,7 @@ export default function Home() {
         </div>
         <div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-10 text-right">
           <motion.h1
-            className="text-8xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
+            className="text-7xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 2.5, ease: "easeIn" }}
