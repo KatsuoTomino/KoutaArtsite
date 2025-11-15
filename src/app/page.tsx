@@ -182,7 +182,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-16 min-h-[80vh]">
+      <section className="relative h-[80vh] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <PuzzleImage
             src="/image/mainimg.jpg"
@@ -192,12 +192,13 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 z-10 text-right">
+        <div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-10 text-right">
           <motion.h1
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 2.5, ease: "easeIn" }}
+            style={{ willChange: "opacity" }}
           >
             <span className="inline-block">Kouta</span>
             <br />
@@ -216,6 +217,7 @@ export default function Home() {
                   times: [0, 0.2, 0.4, 0.5, 0.7, 0.8, 1],
                   ease: "easeOut",
                 }}
+                style={{ willChange: "transform" }}
               >
                 d
               </motion.span>
