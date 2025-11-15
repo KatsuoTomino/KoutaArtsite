@@ -182,7 +182,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-16 pb-20 px-6 sm:px-8 lg:px-12 min-h-[80vh] flex items-end justify-end">
+      <section className="relative pt-16 min-h-[80vh]">
         <div className="absolute inset-0 z-0">
           <PuzzleImage
             src="/image/mainimg.jpg"
@@ -192,16 +192,16 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <div className="relative z-10 w-full text-right pb-8 pr-8">
+        <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 z-10 text-right">
           <motion.h1
-            className="text-7xl sm:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
+            className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 2.5, ease: "easeIn" }}
           >
             <span className="inline-block">Kouta</span>
             <br />
-            <span className="inline-block font-normal mr-4">Art</span>
+            <span className="inline-block font-normal mr-2 sm:mr-4">Art</span>
             <span className="inline-block font-normal">
               worl
               <motion.span
