@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { use } from "react";
 import { motion } from "framer-motion";
-import { getWorkById } from "@/data/works";
+import { supabase } from "@/lib/supabase";
+import type { Work } from "@/lib/supabase";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -12,7 +14,41 @@ interface PageProps {
 
 export default function WorkDetailPage({ params }: PageProps) {
   const { id } = use(params);
-  const work = getWorkById(parseInt(id));
+  const [work, setWork] = useState<Work | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadWork();
+  }, [id]);
+
+  async function loadWork() {
+    try {
+      const { data, error } = await supabase
+        .from("works")
+        .select("*")
+        .eq("id", parseInt(id))
+        .single();
+
+      if (error) throw error;
+      setWork(data);
+    } catch (error) {
+      console.error("Workの取得エラー:", error);
+      setWork(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p>読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!work) {
     return (
@@ -39,7 +75,10 @@ export default function WorkDetailPage({ params }: PageProps) {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="text-xl font-semibold tracking-tight hover:opacity-70 transition-opacity">
+            <Link
+              href="/"
+              className="text-xl font-semibold tracking-tight hover:opacity-70 transition-opacity"
+            >
               KoutaArtworld
             </Link>
             <Link
@@ -61,9 +100,12 @@ export default function WorkDetailPage({ params }: PageProps) {
       >
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full min-h-[60vh] flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden p-4">
-            <div className="relative w-full h-full" style={{ minHeight: '60vh', maxHeight: '80vh' }}>
+            <div
+              className="relative w-full h-full"
+              style={{ minHeight: "60vh", maxHeight: "80vh" }}
+            >
               <Image
-                src={work.image}
+                src={work.image_url}
                 alt={work.title}
                 fill
                 className="object-contain rounded-2xl"
@@ -83,20 +125,14 @@ export default function WorkDetailPage({ params }: PageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="mb-4">
-              <span className="text-sm text-gray-500">{work.category}</span>
-              {work.year && (
-                <span className="text-sm text-gray-500 ml-4">• {work.year}</span>
-              )}
-            </div>
+            {work.year && (
+              <div className="mb-4">
+                <span className="text-sm text-gray-500">{work.year}</span>
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight mb-6">
               {work.title}
             </h1>
-            {work.description && (
-              <p className="text-lg text-gray-700 leading-relaxed mb-12">
-                {work.description}
-              </p>
-            )}
           </motion.div>
 
           {work.details && work.details.length > 0 && (
@@ -144,4 +180,3 @@ export default function WorkDetailPage({ params }: PageProps) {
     </motion.div>
   );
 }
-

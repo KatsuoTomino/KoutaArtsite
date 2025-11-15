@@ -1,15 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { works } from "@/data/works";
-import { newsItems } from "@/data/news";
+import { supabase } from "@/lib/supabase";
+import type { Work, NewsItem } from "@/lib/supabase";
 import PuzzleImage from "@/components/PuzzleImage";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [works, setWorks] = useState<Work[]>([]);
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  async function loadData() {
+    try {
+      // Worksを取得
+      const { data: worksData, error: worksError } = await supabase
+        .from("works")
+        .select("*")
+        .order("id", { ascending: false });
+
+      if (worksError) throw worksError;
+      setWorks(worksData || []);
+
+      // Newsを取得
+      const { data: newsData, error: newsError } = await supabase
+        .from("news")
+        .select("*")
+        .order("id", { ascending: false })
+        .limit(3);
+
+      if (newsError) throw newsError;
+      setNewsItems(newsData || []);
+    } catch (error) {
+      console.error("データの取得エラー:", error);
+      // エラーが発生した場合は空の配列を設定
+      setWorks([]);
+      setNewsItems([]);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -180,10 +217,10 @@ export default function Home() {
                 <Link href={`/news/${news.id}`}>
                   <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all group cursor-pointer">
                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-                      {news.image && (
+                      {news.image_url && (
                         <div className="relative w-full sm:w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
                           <Image
-                            src={news.image}
+                            src={news.image_url}
                             alt={news.title}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -261,19 +298,21 @@ export default function Home() {
                 <Link href={`/works/${work.id}`}>
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 mb-4 rounded-2xl">
                     <Image
-                      src={work.image}
+                      src={work.image_url}
                       alt={work.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
-                  <div className="text-sm text-gray-500 mb-1">
-                    {work.category}
-                  </div>
                   <h3 className="text-xl font-medium group-hover:text-gray-600 transition-colors">
                     {work.title}
                   </h3>
+                  {work.year && (
+                    <div className="text-sm text-gray-500 mt-1">
+                      {work.year}
+                    </div>
+                  )}
                 </Link>
               </motion.div>
             ))}
@@ -312,18 +351,14 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
-                  I am a creative professional passionate about design, art, and
-                  innovation. With years of experience in various creative
-                  fields, I bring a unique perspective to every project.
+                  はじめまして、こうたです。僕のサイトに訪れてくれてありがとうございます。ぼくの頭の中には、たくさんの世界が広がっています。絵を書くことが大好きなので、たくさん表現していきたいと思います。ニューヨークで個展をすることが僕の夢です応援して頂けると光栄です。。
                 </p>
                 <p>
-                  My work focuses on creating meaningful experiences through
-                  thoughtful design, attention to detail, and a deep
-                  understanding of visual communication.
-                </p>
-                <p>
-                  I believe in the power of creativity to inspire, connect, and
-                  transform ideas into reality.
+                  Thank you for visiting my website. Inside my mind, countless
+                  worlds are waiting to be explored. I love drawing, and I want
+                  to express as much as I can through my art. My dream is to
+                  hold a solo exhibition in New York.Your support means a lot to
+                  me.thank you.
                 </p>
               </div>
             </motion.div>

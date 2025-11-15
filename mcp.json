@@ -4,8 +4,8 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-supabase"],
       "env": {
-        "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_KEY": "${SUPABASE_KEY}"
+        "SUPABASE_URL": "https://yjafjuylrpgsoshlgsbg.supabase.co",
+        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlqYWZqdXlscnBnc29zaGxnc2JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwOTk0NDEsImV4cCI6MjA3ODY3NTQ0MX0.gonYiTJY1Q9BDMDdZzXwLYeSesWAh4NV4OY5X94m-68"
       }
     }
   }

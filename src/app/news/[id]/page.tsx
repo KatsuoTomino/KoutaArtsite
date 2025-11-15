@@ -1,15 +1,51 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { newsItems } from "@/data/news";
+import { supabase } from "@/lib/supabase";
+import type { NewsItem } from "@/lib/supabase";
 
 export default function NewsDetailPage() {
   const params = useParams();
   const id = parseInt(params.id as string);
-  const news = newsItems.find((item) => item.id === id);
+  const [news, setNews] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadNews();
+  }, [id]);
+
+  async function loadNews() {
+    try {
+      const { data, error } = await supabase
+        .from("news")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) throw error;
+      setNews(data);
+    } catch (error) {
+      console.error("Newsの取得エラー:", error);
+      setNews(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p>読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!news) {
     return (
@@ -105,7 +141,7 @@ export default function NewsDetailPage() {
           </motion.h1>
 
           {/* Image */}
-          {news.image && (
+          {news.image_url && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -113,7 +149,7 @@ export default function NewsDetailPage() {
               className="relative aspect-video w-full mb-12 rounded-2xl overflow-hidden"
             >
               <Image
-                src={news.image}
+                src={news.image_url}
                 alt={news.title}
                 fill
                 className="object-cover"
