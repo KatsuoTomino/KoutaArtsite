@@ -107,7 +107,22 @@ export default function Home() {
               <span className="text-orange-500">o</span>
               <span className="text-yellow-500">r</span>
               <span className="text-green-500">l</span>
-              <span className="text-blue-500">d</span>
+              <motion.span
+                className="inline-block text-blue-500"
+                animate={{
+                  y: [0, -8, 0, -6, 0, -4, 0],
+                }}
+                transition={{
+                  duration: 1.5,
+                  delay: 3.2,
+                  times: [0, 0.2, 0.4, 0.5, 0.7, 0.8, 1],
+                  ease: "easeOut",
+                  repeat: 0,
+                }}
+                style={{ willChange: "transform" }}
+              >
+                d
+              </motion.span>
             </Link>
 
             {/* Mobile Menu Button */}
@@ -194,7 +209,7 @@ export default function Home() {
         </div>
         <div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-10 text-right">
           <motion.h1
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
+            className="text-8xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight leading-tight drop-shadow-2xl text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 2.5, ease: "easeIn" }}
