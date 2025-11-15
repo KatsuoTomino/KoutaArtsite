@@ -176,21 +176,60 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-                  <time className="text-sm text-gray-500 font-medium min-w-[100px]">
-                    {news.date}
-                  </time>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium mb-2">{news.title}</h3>
-                    {news.description && (
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {news.description}
-                      </p>
-                    )}
+                <Link href={`/news/${news.id}`}>
+                  <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all group cursor-pointer">
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                      {news.image && (
+                        <div className="relative w-full sm:w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
+                          <Image
+                            src={news.image}
+                            alt={news.title}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            sizes="(max-width: 640px) 100vw, 128px"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          {news.category && (
+                            <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">
+                              {news.category}
+                            </span>
+                          )}
+                          <time className="text-sm text-gray-500 font-medium">
+                            {news.date}
+                          </time>
+                        </div>
+                        <h3 className="text-lg font-medium mb-2 group-hover:text-gray-600 transition-colors">
+                          {news.title}
+                        </h3>
+                        {news.description && (
+                          <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                            {news.description}
+                          </p>
+                        )}
+                        <div className="mt-3 text-sm text-gray-500 group-hover:text-gray-700 transition-colors flex items-center">
+                          続きを読む
+                          <svg
+                            className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>
